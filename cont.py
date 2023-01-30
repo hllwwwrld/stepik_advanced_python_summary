@@ -1128,3 +1128,32 @@ for i in sorted(buyers):  # по отсортированному списку �
     buyers[i] = dict(buyers[i])  # в списке позиция имею конструкцию список списков [[товар1, кол-во1], [товар2, кол-во2]], на основе этой конструкции делаю словарь {товар1: кол-во1, товар2: кол-во2}
     for j in sorted(buyers[i]):  # по отсортированному списку позиций покупателя вывожу позицию и из словаря и вложенного словаря вывожу по ключу покупатель, и по второму лючу позиция - кол-во товара
         print(f'{j} {buyers[i][j]}')
+
+
+# Библиотека String
+import string
+
+print(string.ascii_letters)  # abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
+print(string.ascii_uppercase)  #ABCDEFGHIJKLMNOPQRSTUVWXYZ
+print(string.ascii_lowercase)  #abcdefghijklmnopqrstuvwxyz
+print(string.digits)  #0123456789
+print(string.hexdigits)  #0123456789abcdefABCDEF
+print(string.octdigits)  #01234567
+print(string.punctuation)  #!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
+print(string.printable)  # 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~ \t\n\r\x0b\x0c
+
+
+
+
+# генератор случайных паролей длиной 5
+import random
+import string
+def create_unic_id():
+    unic_id = ''.join([random.choice([random.choice(string.ascii_letters), str(random.randint(0, 9))]) for _ in range(5)])
+    return unic_id
+
+for _ in range(30):
+    print(create_unic_id())
+
+
+
