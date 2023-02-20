@@ -1446,3 +1446,67 @@ print(result2)  # [3.6, 5.58, 4.319, 6.2024, 91.01344, 32.01213]
 # -итератор можно преобразовать в список или кортеж, с помощью функций list() и tuple();
 # -итератор можно распаковать с помощью *
 
+
+# 15.7 шаг 15
+# ПРИМЕР анонимных функций с использованием map, filter, reduce
+from functools import reduce
+
+floats = [4.35, 6.09, 3.25, 9.77, 2.16, 8.88, 4.59, 34.23, 12.12, 4.67, 2.45, 9.32]
+words = ['racecar', 'akinremi', 'deed', 'temidayo', 'omoseun', 'civic', 'TATTARRATTAT', 'malayalam', 'nun']
+numbers = [4, 6, 9, 23, 5]
+
+# Исправьте этот код
+map_result = list(map(lambda num: round(num**2, 1), floats))
+filter_result = list(filter(lambda name: len(name) > 4 and name == name[::-1], words))
+reduce_result = reduce(lambda num1, num2: num1*num2, numbers, 1)
+
+
+print(map_result)
+print(filter_result)
+print(reduce_result)
+
+
+
+# 15.7 шаг 16
+# пример lambda анонимных функций с использованием sorted, filter, reduce
+from functools import reduce
+
+data = [['Tokyo', 35676000, 'primary'],
+        ['New York', 19354922, 'nan'],
+        ['Mexico City', 19028000, 'primary'],
+        ['Mumbai', 18978000, 'admin'],
+        ['Sao Paulo', 18845000, 'admin'],
+        ['Delhi', 15926000, 'admin'],
+        ['Shanghai', 14987000, 'admin'],
+        ['Kolkata', 14787000, 'admin'],
+        ['Los Angeles', 12815475, 'nan'],
+        ['Dhaka', 12797394, 'primary'],
+        ['Buenos Aires', 12795000, 'primary'],
+        ['Karachi', 12130000, 'admin'],
+        ['Cairo', 11893000, 'primary'],
+        ['Rio de Janeiro', 11748000, 'admin'],
+        ['Osaka', 11294000, 'admin'],
+        ['Beijing', 11106000, 'primary'],
+        ['Manila', 11100000, 'primary'],
+        ['Moscow', 10452000, 'primary'],
+        ['Istanbul', 10061000, 'admin'],
+        ['Paris', 9904000, 'primary']]
+
+data_alph_sorted = sorted(data, key=lambda city_data: city_data[0])  # сортирую, используя как ключ название города
+
+data_filtered= filter(lambda city_data: city_data[2] == 'primary' and city_data[1] > 10**7, data_alph_sorted)  # фильтрую нужные города, оставляя только нужные города
+
+# объденяю все города через запятую (чтобы не было запятой после начального значение ставлю запятую после второго элемента)
+new_data = reduce(lambda start, city_data: f'{start} {city_data[0]},', data_filtered, 'Cities:')
+
+print(new_data[:-1])  # вывожу все города, без последнего символа, потому, что последний символ - запятая
+
+
+# 15.7 шаг 13
+# вывести максимальный целочисленный элемент из списка, где содержатся разные сущности
+mixed_list = ['tuesday', 'abroad', 'abuse', 'beside', 'monday', 'abate', 'accessory', 'absorb', 1384878, 'sunday', 'about', 454805, 'saturday', 'abort', 2121919, 2552839, 977970, 1772933, 1564063, 'abduct', 901271, 2680434, 'bicycle', 'accelerate', 1109147, 942908, 'berry', 433507, 'bias', 'bestow', 1875665, 'besides', 'bewilder', 1586517, 375290, 1503450, 2713047, 'abnormal', 2286106, 242192, 701049, 2866491, 'benevolent', 'bigot', 'abuse', 'abrupt', 343772, 'able', 2135748, 690280, 686008, 'beyond', 2415643, 'aboard', 'bet', 859105, 'accident', 2223166, 894187, 146564, 1251748, 2851543, 1619426, 2263113, 1618068, 'berth', 'abolish', 'beware', 2618492, 1555062, 'access', 'absent', 'abundant', 2950603, 'betray', 'beverage', 'abide', 'abandon', 2284251, 'wednesday', 2709698, 'thursday', 810387, 'friday', 2576799, 2213552, 1599022, 'accept', 'abuse', 'abound', 1352953, 'bid', 1805326, 1499197, 2241159, 605320, 2347441]
+
+# как ключ использую анонимную функцию, где вовзращается элемент, если тип int, иначе возвращается 0
+print(max(mixed_list, key=lambda x: x if type(x) == int else len(x) - len(x)))
+
+
