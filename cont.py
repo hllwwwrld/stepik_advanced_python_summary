@@ -1896,15 +1896,3 @@ with open('numbers.txt') as file:
 
     # вывожу сумму всеъ элементов
     print(sum(strings_int))
-
-
-
-def read_csv():
-    with open('data.csv') as csv:
-        keys = list(map(str.rstrip, csv.readline().split(',')))
-        # print(keys)
-
-        list_of_csv_dictionaries = [dict(zip(keys, list(map(str.rstrip, line.split(','))))) for line in csv]
-        print(list_of_csv_dictionaries)
-
-read_csv()
