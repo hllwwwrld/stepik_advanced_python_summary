@@ -1857,3 +1857,54 @@ all_orders_summ = sum(order_summ)  # получаю сумму всех зака
 print(all_orders_summ)
 
 file.close()  # завершаю работу над файлом
+
+
+
+# 17.3 шаг 11
+# https://stepik.org/lesson/530408/step/11?unit=523223
+#
+from string import ascii_letters
+
+# Получает на вход строку и заменяет в ней все буквы на пробелы
+def letter_replace(string):
+    for letter in ascii_letters:  # цикл по всем буквам из модуля string
+        string = string.replace(letter, ' ')  # заменяю букву на пробел
+    return string.strip()  # возвращаю строку с замененными буквами
+
+
+# функция, которая принимает строку с несколькими числами или с одним и переводит их в int
+def format_string_to_int(string):  # параметр - строка
+    if ' ' in string:  # если в строке есть пробелы (значит чисел несколько)
+        numbers = string.split()  # из исходной строки создается список, где каждый элемент число
+        numbers_list = list(map(int, numbers))  # число в списке преобразуется через int, из исходной строки создается список чисел
+        return sum(numbers_list)  # возвращается сумма всех чисел созданного списка
+    else:  # если в строке нет пробелов (1 число в строке)
+        return int(string)  # возвращаю это число, переведенное в int
+
+
+with open('numbers.txt') as file:
+    strings = list(map(str.rstrip, file.readlines()))  # считываю все строки, убираю символ \n в конце строки
+    #print(strings)
+
+    # создаю список, преобразуя все строки через map и фнукцию по замене букв, в итоге создается список с str элементами и числ-ами(ом) внутри строки
+    strings_no_letters = list(map(letter_replace, strings))
+    #print(strings_no_letters)
+
+    # преобразую все строки с числами функцией перевода строки в int (строка может содержать одно число или несколько, разделенных пробелами)
+    strings_int = list(map(format_string_to_int, strings_no_letters))
+    #print(strings_int)
+
+    # вывожу сумму всеъ элементов
+    print(sum(strings_int))
+
+
+
+def read_csv():
+    with open('data.csv') as csv:
+        keys = list(map(str.rstrip, csv.readline().split(',')))
+        # print(keys)
+
+        list_of_csv_dictionaries = [dict(zip(keys, list(map(str.rstrip, line.split(','))))) for line in csv]
+        print(list_of_csv_dictionaries)
+
+read_csv()
